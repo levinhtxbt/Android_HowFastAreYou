@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="E:\Android\Android_HowFastAreYou\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        revision="23.0.1"
+        sha1="6d4c39133416d6f2dfdf7b44e2bb67441cc60a29">
+        <dex dex="E:\Android\Android_HowFastAreYou\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_ec8389de84251d6febd8e50e802abce397ae2fa1\classes.dex" />
+    </item>
+    <item
+        jar="E:\Android\Android_HowFastAreYou\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.0.1\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.1"
+        sha1="d86429b0f0b3f3cafbeb78dda1b9d89119ccb05d">
+        <dex dex="E:\Android\Android_HowFastAreYou\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-appcompat-v7-23.0.1_d47dd78270b6ee28c00a92a71d76bfe0eebbee07\classes.dex" />
+    </item>
+    <item
+        jar="E:\Android\Android_HowFastAreYou\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        revision="23.0.1"
+        sha1="266fbd6670da50545c4380fa66ad20add931aa62">
+        <dex dex="E:\Android\Android_HowFastAreYou\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_71bc3007079f990d8c6904089fcb3b5519cfed8c\classes.dex" />
+    </item>
+    <item
+        jar="E:\Android\Android_HowFastAreYou\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.0.1\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.1"
+        sha1="c31e21b53ff2f74664e498248d01453a32e32d48">
+        <dex dex="E:\Android\Android_HowFastAreYou\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-v4-23.0.1_6168c4337873fb7aa29db930ba128494cb091a90\classes.dex" />
+    </item>
+    <item
+        jar="C:\Android\SDK\extras\android\m2repository\com\android\support\support-annotations\23.0.1\support-annotations-23.0.1.jar"
+        jumboMode="true"
+        revision="23.0.1"
+        sha1="1fce89a6428c51467090d7f424e4c9c3dbd55f7e">
+        <dex dex="E:\Android\Android_HowFastAreYou\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-23.0.1_ba08e06e121e75b3557eb96efdc6a01f97c896bc\classes.dex" />
+    </item>
+    <item
+        jar="E:\Android\Android_HowFastAreYou\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.0.1\jars\libs\internal_impl-23.0.1.jar"
+        jumboMode="true"
+        revision="23.0.1"
+        sha1="aa92916125166649d8ad4ba3940c3dd7515596d3">
+        <dex dex="E:\Android\Android_HowFastAreYou\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-23.0.1_6218fdfd35bc4087029974a95381ae811c8e1e75\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\levinh\.gradle\caches\modules-2\files-2.1\com.jakewharton\butterknife\7.0.1\d5d13ea991eab0252e3710e5df3d6a9d4b21d461\butterknife-7.0.1.jar"
+        jumboMode="true"
+        revision="23.0.1"
+        sha1="d5d13ea991eab0252e3710e5df3d6a9d4b21d461">
+        <dex dex="E:\Android\Android_HowFastAreYou\app\build\intermediates\transforms\dex\debug\folders\1000\10\butterknife-7.0.1_a8fa5c4407a6f5899fca2f7af12ebe1690fcdd8f\classes.dex" />
+    </item>
+
+</items>
