@@ -43,7 +43,7 @@ public class TapCountResultFragment extends Fragment {
             Log.d("restore listhighscore ", lsvHightScore.getListHighScore().size()+" ");
         }else {
             lsvHightScore = new ListHighScore();
-            Log.d("create listhighscore ","this is message attention create list high score");
+            Log.d("create listhighscore ","this is message to create list high score");
         }
         lvResult = (ListView) getView().findViewById(R.id.list_result);
         ada = new ListViewAdapter(getActivity(), R.layout.item_listview, lsvHightScore.getListHighScore());
