@@ -1,8 +1,10 @@
 package com.hasbrain.howfastareyou;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,23 +31,20 @@ public class TapCountResultFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.result_fragment, container, false);
+        setRetainInstance(true);
         return view;
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        if(savedInstanceState!=null){
-            lsvHightScore = (ListHighScore)savedInstanceState.getSerializable(TapCountActivity.HIGHSCORE);
-            ada.notifyDataSetChanged();
-        }
-
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        lsvHightScore = new ListHighScore();
+        if(savedInstanceState!=null){
+            lsvHightScore = (ListHighScore) savedInstanceState.getSerializable(TapCountActivity.HIGHSCORE);
+            Log.d("restore listhighscore ", lsvHightScore.getListHighScore().size()+" ");
+        }else {
+            lsvHightScore = new ListHighScore();
+            Log.d("create listhighscore ","this is message attention create list high score");
+        }
         lvResult = (ListView) getView().findViewById(R.id.list_result);
         ada = new ListViewAdapter(getActivity(), R.layout.item_listview, lsvHightScore.getListHighScore());
         lvResult.setAdapter(ada);
@@ -58,6 +57,7 @@ public class TapCountResultFragment extends Fragment {
 
     public void setResult(ListHighScore listHighScore) {
         this.lsvHightScore = listHighScore;
+        ada.notifyDataSetChanged();
     }
 
     public ListHighScore getResult() {

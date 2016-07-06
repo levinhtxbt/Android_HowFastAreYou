@@ -1,6 +1,7 @@
 package com.hasbrain.howfastareyou;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v4.app.Fragment;
@@ -63,13 +64,11 @@ public class TapCountActivity extends AppCompatActivity {
             mCurrentTime = savedInstanceState.getLong(CURRENT_TIME, 0);
             mScore = savedInstanceState.getInt(SCORE, 0);
             mListHighScore = (ListHighScore) savedInstanceState.getSerializable(HIGHSCORE);
-//            Log.d("COunt highScore: ", mListHighScore.getListHighScore().size() + " ");
             tvTabCount.setText(String.valueOf(mScore));
             tvTime.setBase(SystemClock.elapsedRealtime() - mCurrentTime + mStartTime);
             if (mState == STATE_PAUSE) {
                 setStateGame(STATE_PAUSE);
             }
-//            fragment = (TapCountResultFragment) getSupportFragmentManager().getFragment(savedInstanceState, "mContent");
         }
 
         tvTime.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
@@ -83,6 +82,22 @@ public class TapCountActivity extends AppCompatActivity {
 
         fragment = new TapCountResultFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.fl_result_fragment, fragment).commit();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+//        TapCountResultFragment resultFragment = (TapCountResultFragment)
+//                getSupportFragmentManager().findFragmentById(R.id.fl_result_fragment);
+//        if(resultFragment!=null){
+//            resultFragment.setResult(mListHighScore);
+//            Log.d("set result",mListHighScore.getListHighScore().size()+" ");
+//        }
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
 
     }
 
@@ -94,7 +109,6 @@ public class TapCountActivity extends AppCompatActivity {
         outState.putLong(CURRENT_TIME, mCurrentTime);
         outState.putLong(START_TIME, mStartTime);
         outState.putInt(SCORE, mScore);
-//        getSupportFragmentManager().putFragment(outState,"mContent",fragment);
         TapCountResultFragment resultFragment = (TapCountResultFragment)
                 getSupportFragmentManager().findFragmentById(R.id.fl_result_fragment);
         if (resultFragment != null) {
@@ -158,11 +172,9 @@ public class TapCountActivity extends AppCompatActivity {
 
         mCurrentTime = SystemClock.elapsedRealtime();
         setStateGame(STATE_STOP);
-
-        TapCountResultFragment resultFragment = (TapCountResultFragment)
-                getSupportFragmentManager().findFragmentById(R.id.fl_result_fragment);
-        if (resultFragment != null) {
-            resultFragment.updateScore(mScore);
+        if (fragment != null) {
+            fragment.updateScore(mScore);
+            Log.d("update score",mScore+"");
         }
     }
 
