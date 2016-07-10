@@ -1,9 +1,11 @@
 package com.hasbrain.howfastareyou.model;
 
+import java.io.Serializable;
+
 /**
  * Created by levinh on 07/04/16.
  */
-public class HighScore {
+public class HighScore implements Serializable {
 
     private int mScore;
     private long mTime;

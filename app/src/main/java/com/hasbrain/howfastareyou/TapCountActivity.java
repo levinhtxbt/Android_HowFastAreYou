@@ -1,10 +1,8 @@
 package com.hasbrain.howfastareyou;
 
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -14,14 +12,12 @@ import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.TextView;
 
-import com.hasbrain.howfastareyou.model.ListHighScore;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class TapCountActivity extends AppCompatActivity {
-
+    private static final String TAG = "Activity";
     public static final int TIME_COUNT = 10000; //10s
     public static final String STATE = "State";
     public static final String START_TIME = "startTime";
@@ -47,23 +43,18 @@ public class TapCountActivity extends AppCompatActivity {
     private int mState = STATE_STOP;
     private int mScore;
     TapCountResultFragment fragment;
-    ListHighScore mListHighScore;
-    Fragment mContent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_count);
         ButterKnife.bind(this);
-        mListHighScore = new ListHighScore();
-
+        Log.d(TAG, " onCreate: " + this);
         if (savedInstanceState != null) {
-
             mState = savedInstanceState.getInt(STATE);
             mStartTime = savedInstanceState.getLong(START_TIME, 0);
             mCurrentTime = savedInstanceState.getLong(CURRENT_TIME, 0);
             mScore = savedInstanceState.getInt(SCORE, 0);
-            mListHighScore = (ListHighScore) savedInstanceState.getSerializable(HIGHSCORE);
             tvTabCount.setText(String.valueOf(mScore));
             tvTime.setBase(SystemClock.elapsedRealtime() - mCurrentTime + mStartTime);
             if (mState == STATE_PAUSE) {
@@ -74,31 +65,19 @@ public class TapCountActivity extends AppCompatActivity {
         tvTime.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
             @Override
             public void onChronometerTick(Chronometer chronometer) {
-                if (checkTimeOut(mStartTime)) {
+                if (SystemClock.elapsedRealtime() - mStartTime >= TIME_COUNT) {
                     stopTapping();
                 }
             }
         });
 
-        fragment = new TapCountResultFragment();
+        fragment = (TapCountResultFragment)
+                getSupportFragmentManager().findFragmentById(R.id.fl_result_fragment);
+        if (fragment == null) {
+            fragment = new TapCountResultFragment();
+        }
         getSupportFragmentManager().beginTransaction().replace(R.id.fl_result_fragment, fragment).commit();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-//        TapCountResultFragment resultFragment = (TapCountResultFragment)
-//                getSupportFragmentManager().findFragmentById(R.id.fl_result_fragment);
-//        if(resultFragment!=null){
-//            resultFragment.setResult(mListHighScore);
-//            Log.d("set result",mListHighScore.getListHighScore().size()+" ");
-//        }
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-
+        Log.d(TAG, " onCreate after Attach Fragment: " + this);
     }
 
 
@@ -109,18 +88,14 @@ public class TapCountActivity extends AppCompatActivity {
         outState.putLong(CURRENT_TIME, mCurrentTime);
         outState.putLong(START_TIME, mStartTime);
         outState.putInt(SCORE, mScore);
-        TapCountResultFragment resultFragment = (TapCountResultFragment)
-                getSupportFragmentManager().findFragmentById(R.id.fl_result_fragment);
-        if (resultFragment != null) {
-            mListHighScore = resultFragment.getResult();
-        }
-        outState.putSerializable(HIGHSCORE, mListHighScore);
+        Log.d(TAG, " onSaveInstanceState: " + this);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         pauseTapping();
+        Log.d(TAG, "onPause: " + this);
     }
 
     @Override
@@ -174,7 +149,6 @@ public class TapCountActivity extends AppCompatActivity {
         setStateGame(STATE_STOP);
         if (fragment != null) {
             fragment.updateScore(mScore);
-            Log.d("update score",mScore+"");
         }
     }
 
@@ -215,7 +189,4 @@ public class TapCountActivity extends AppCompatActivity {
         }
     }
 
-    public boolean checkTimeOut(long startTime) {
-        return (SystemClock.elapsedRealtime() - startTime >= TIME_COUNT) ? true : false;
-    }
 }
