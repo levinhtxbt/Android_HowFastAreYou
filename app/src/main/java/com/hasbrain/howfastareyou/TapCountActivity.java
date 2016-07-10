@@ -12,13 +12,14 @@ import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.TextView;
 
+import com.hasbrain.howfastareyou.utils.Settings;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class TapCountActivity extends AppCompatActivity {
     private static final String TAG = "Activity";
-    public static final int TIME_COUNT = 10000; //10s
     public static final String STATE = "State";
     public static final String START_TIME = "startTime";
     public static final String CURRENT_TIME = "currentTime";
@@ -43,13 +44,15 @@ public class TapCountActivity extends AppCompatActivity {
     private int mState = STATE_STOP;
     private int mScore;
     TapCountResultFragment fragment;
-
+    int timeSecond;
+    Settings settings;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_count);
         ButterKnife.bind(this);
         Log.d(TAG, " onCreate: " + this);
+
         if (savedInstanceState != null) {
             mState = savedInstanceState.getInt(STATE);
             mStartTime = savedInstanceState.getLong(START_TIME, 0);
@@ -62,10 +65,13 @@ public class TapCountActivity extends AppCompatActivity {
             }
         }
 
+        settings = new Settings(this);
+        timeSecond = settings.getTimeLimit() * 1000;
+
         tvTime.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
             @Override
             public void onChronometerTick(Chronometer chronometer) {
-                if (SystemClock.elapsedRealtime() - mStartTime >= TIME_COUNT) {
+                if (SystemClock.elapsedRealtime() - mStartTime >= timeSecond) {
                     stopTapping();
                 }
             }
@@ -109,6 +115,7 @@ public class TapCountActivity extends AppCompatActivity {
         if (item.getItemId() == R.id.menu_settings) {
             Intent showSettingsActivity = new Intent(this, SettingsActivity.class);
             startActivity(showSettingsActivity);
+            finish();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -147,7 +154,7 @@ public class TapCountActivity extends AppCompatActivity {
 
         mCurrentTime = SystemClock.elapsedRealtime();
         setStateGame(STATE_STOP);
-        if (fragment != null) {
+        if (fragment != null && settings.isRecordHighScore()) {
             fragment.updateScore(mScore);
         }
     }
