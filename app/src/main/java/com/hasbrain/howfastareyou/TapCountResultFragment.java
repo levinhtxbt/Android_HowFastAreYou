@@ -18,13 +18,13 @@ import com.hasbrain.howfastareyou.model.ListHighScore;
 public class TapCountResultFragment extends Fragment {
     private static final String TAG = "Fragment";
     ListView lvResult;
-    ListHighScore lsvHightScore;
-    ListViewAdapter ada;
+    ListHighScore lsvHightScore = null;
+    ListViewAdapter ada = null;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setRetainInstance(false);
+        setRetainInstance(true); //
         Log.d(TAG, "onCreate: " + this);
     }
 
@@ -40,14 +40,18 @@ public class TapCountResultFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Log.d("Fragment:", this + " " + savedInstanceState);
-        if(savedInstanceState!=null){
-            Log.d(TAG, "onViewCreated: savedInstanceState!=null");
-            lsvHightScore = (ListHighScore) savedInstanceState.getSerializable(TapCountActivity.HIGHSCORE);
-        }else {
+//        if(savedInstanceState!=null){
+//            Log.d(TAG, "onViewCreated: savedInstanceState!=null");
+//            lsvHightScore = (ListHighScore) savedInstanceState.getSerializable(TapCountActivity.HIGHSCORE);
+//        }else {
+//            lsvHightScore = new ListHighScore();
+//        }
+
+        if (lsvHightScore == null) {
             lsvHightScore = new ListHighScore();
+            ada = new ListViewAdapter(getActivity(), R.layout.item_listview, lsvHightScore.getListHighScore());
         }
         lvResult = (ListView) getView().findViewById(R.id.list_result);
-        ada = new ListViewAdapter(getActivity(), R.layout.item_listview, lsvHightScore.getListHighScore());
         lvResult.setAdapter(ada);
         Log.d(TAG, "onViewCreated: " + this);
     }
@@ -70,7 +74,7 @@ public class TapCountResultFragment extends Fragment {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putSerializable(TapCountActivity.HIGHSCORE,lsvHightScore);
+//        outState.putSerializable(TapCountActivity.HIGHSCORE,lsvHightScore);
         Log.d(TAG, "onSaveInstanceState: " + this);
     }
 
