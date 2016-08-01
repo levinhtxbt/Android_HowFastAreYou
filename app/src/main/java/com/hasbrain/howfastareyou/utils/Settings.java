@@ -3,6 +3,8 @@ package com.hasbrain.howfastareyou.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.hasbrain.howfastareyou.MainApplication;
+
 
 /**
  * Created by levinh on 07/10/16.
@@ -18,10 +20,9 @@ public class Settings {
     private boolean recordHighScore;
     private SharedPreferences sharedPreferences;
 
-    public Settings(Context context) {
-        this.context = context;
+    public Settings() {
+        this.context = MainApplication.mSharedContext;
         sharedPreferences = context.getSharedPreferences(FILE_NAME, 0);
-
         if (sharedPreferences != null) {
             this.timeLimit = sharedPreferences.getInt(TIME_LIMIT, DEFAULT_TIME_LIMIT);
             this.recordHighScore = sharedPreferences.getBoolean(RECORD_HIGHSCORE, false);

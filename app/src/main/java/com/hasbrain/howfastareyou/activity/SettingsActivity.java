@@ -1,4 +1,4 @@
-package com.hasbrain.howfastareyou;
+package com.hasbrain.howfastareyou.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,7 @@ import android.support.v7.widget.SwitchCompat;
 import android.widget.CompoundButton;
 import android.widget.SeekBar;
 
+import com.hasbrain.howfastareyou.R;
 import com.hasbrain.howfastareyou.utils.Settings;
 
 import butterknife.Bind;
@@ -37,7 +38,7 @@ public class SettingsActivity extends AppCompatActivity implements SeekBar.OnSee
         ButterKnife.bind(this);
 
         // Restore SharedReferences
-        settings = new Settings(this);
+        settings = new Settings();
 
         tvTimeLimit.setText(settings.getTimeLimit() + " sec");
         sbTimeLimit.setProgress(settings.getTimeLimit() - 5);

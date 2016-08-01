@@ -1,4 +1,4 @@
-package com.hasbrain.howfastareyou;
+package com.hasbrain.howfastareyou.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.TextView;
 
+import com.hasbrain.howfastareyou.R;
+import com.hasbrain.howfastareyou.fragment.TapCountResultFragment;
 import com.hasbrain.howfastareyou.utils.Settings;
 
 import butterknife.Bind;
@@ -46,6 +48,7 @@ public class TapCountActivity extends AppCompatActivity {
     TapCountResultFragment fragment;
     int timeSecond;
     Settings settings;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,7 +68,7 @@ public class TapCountActivity extends AppCompatActivity {
             }
         }
 
-        settings = new Settings(this);
+        settings = new Settings();
         timeSecond = settings.getTimeLimit() * 1000;
 
         tvTime.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
@@ -85,7 +88,6 @@ public class TapCountActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.fl_result_fragment, fragment).commit();
         Log.d(TAG, " onCreate after Attach Fragment: " + this);
     }
-
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
@@ -155,7 +157,7 @@ public class TapCountActivity extends AppCompatActivity {
         mCurrentTime = SystemClock.elapsedRealtime();
         setStateGame(STATE_STOP);
         if (fragment != null && settings.isRecordHighScore()) {
-            fragment.updateScore(mScore);
+            fragment.updateScore(mScore, settings.getTimeLimit());
         }
     }
 

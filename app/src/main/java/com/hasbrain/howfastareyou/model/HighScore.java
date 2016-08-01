@@ -9,6 +9,7 @@ public class HighScore implements Serializable {
 
     private int mScore;
     private long mTime;
+    private int mTimeCount;
 
     public int getScore() {
         return mScore;
@@ -26,13 +27,23 @@ public class HighScore implements Serializable {
         this.mTime = mTime;
     }
 
-    public HighScore(int score) {
+    public HighScore(int score, int timecount) {
         this.mScore = score;
+        this.mTimeCount = timecount;
         this.mTime = System.currentTimeMillis();
     }
 
-    public HighScore(int score,long time) {
+    public HighScore(int score, int timecount, long time) {
+        this.mTimeCount = timecount;
         this.mScore = score;
         this.mTime = time;
+    }
+
+    public int getTimeCount() {
+        return mTimeCount;
+    }
+
+    public void setTimeCount(int mTimeCount) {
+        this.mTimeCount = mTimeCount;
     }
 }
